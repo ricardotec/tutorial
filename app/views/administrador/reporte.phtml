@@ -1,0 +1,80 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="page-header">
+    <h1>
+        Agregar reporte
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "administrador/report",
+            "enctype"=>"multipart/form-data",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="span4 offset4">
+    <div class="form-group">
+        <label>Nombre</label>
+        <div>
+            <?php echo $this->tag->textField(["nombre", "size" => 30, "class" => "form-control", "id" => "fieldNombre"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Descripcion</label>
+        <div>
+            <?php echo $this->tag->textArea(["descripcion", "size" => 30, "class" => "form-control", "id" => "fieldDescripcion"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Sucursal</label>
+        <div>
+            <?php echo $this->tag->selectStatic(["sucursal",['Prado'=>'Prado','Monterrey'=>'Monterrey']]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Sistema</label>
+        <div>
+            <?php echo $this->tag->selectStatic(["sistema",['Excel'=>'Excel','Fanda'=>'Fanda']]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Fecha de Fin</label>
+        <div>
+            <?php echo $this->tag->dateField(["fecha_limite", "type" => "date", "class" => "form-control", "id" => "fieldFechaInicio"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Prioridad</label>
+        <div>
+            <?php 
+            echo $this->tag->select(["id_prioridad",$prioridad,'using'=>['id_prioridad','prioridad']]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <?php echo $this->tag->fileField("file[]"); ?>      
+    </div>
+
+    <div class="form-group">
+        <div align="center">
+            <?php echo $this->tag->submitButton(["Guardar", "class" => "btn btn-success"]) ?>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>

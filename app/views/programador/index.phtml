@@ -1,0 +1,74 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<?php use Phalcon\Tag; ?>
+
+<div class="page-header">
+    <h1>Bienvenido!!</h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<div class="row">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Prioridad</th>
+                <th>Nombre del Reporte</th>
+                <th>Descripcion</th>
+                <th>Sucursal</th>
+                <th>Sistema</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Fin</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            //comprobamos si hay filas
+            if($tabla->count() > 0)
+            {
+                foreach($tabla as $result)
+                {
+                    if ($result->id_prioridad == 4) {
+                        echo "<tr class='danger'>";
+                    }
+                    else
+                    if ($result->id_prioridad == 3) {
+                        echo "<tr class='warning'>";
+                    }
+                    else
+                    if ($result->id_prioridad == 2) {
+                        echo "<tr class='info'>";
+                    }
+                    else{
+                        echo "<tr class='success'>";
+                    }
+                    echo "<td>".$result->prioridad."</td>";
+                    echo "<td>".$result->Reporte."</td>";
+                    echo "<td>".$result->descripcion."</td>";
+                    echo "<td>".$result->sucursal."</td>";
+                    echo "<td>".$result->sistema."</td>";
+                    echo "<td>".$result->fecha_inicio."</td>";
+                    echo "<td>".$result->fecha_limite."</td>";
+                    echo "<td>".$result->Estado."</td>";
+
+                    if ($result->id_status == 2) {
+                        echo "<td>".$this->tag->linkTo(["programador/tomar/" . $result->id_reporte, "Tomar"])."</td>";
+                    }
+                    if ($result->id_status == 3) {
+                        echo "<td>".$this->tag->linkTo(["programador/revision/" . $result->id_reporte, "Enviar a revisión"])."</td>";
+                    }
+                    echo "</tr>";
+                }
+            }
+            else{
+                $this->flash->notice("No hay incidencias");
+            }
+        ?>
+        </tbody>
+    </table>
+</div>

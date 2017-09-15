@@ -1,0 +1,81 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<?php use Phalcon\Tag; ?>
+
+<div class="page-header">
+    <h1>Bienvenido!!</h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<script type="text/javascript">
+  setTimeout("location.reload()", 25000);
+</script>
+
+<div class="row">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Prioridad</th>
+                <th>Nombre del Reporte</th>
+                <th>Descripcion</th>
+                <th>Sucursal</th>
+                <th>Sistema</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Fin</th>
+                <th>Asignado</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            //comprobamos si hay filas
+            if($tabla->count() > 0)
+            {
+                foreach($tabla as $result)
+                {
+                    if ($result->id_prioridad == 4) {
+                        echo "<tr class='danger'>";
+                    }
+                    else
+                    if ($result->id_prioridad == 3) {
+                        echo "<tr class='warning'>";
+                    }
+                    else
+                    if ($result->id_prioridad == 2) {
+                        echo "<tr class='info'>";
+                    }
+                    else{
+                        echo "<tr class='success'>";
+                    }
+                    echo "<td>".$result->prioridad."</td>";
+                    echo "<td>".$result->Reporte."</td>";
+                    echo "<td>".$result->descripcion."</td>";
+                    echo "<td>".$result->sucursal."</td>";
+                    echo "<td>".$result->sistema."</td>";
+                    echo "<td>".$result->fecha_inicio."</td>";
+                    echo "<td>".$result->fecha_limite."</td>";
+                    echo "<td>".$result->Uname." ".$result->paterno." ".$result->materno."</td>";
+                    echo "<td>".$result->Estado."</td>";
+                    
+                    if ($result->id_usuario == 0) {
+                        echo "<td>".$this->tag->linkTo(["soporte/asignar/" . $result->id_reporte, "Asignar"])."</td>";
+                    }
+
+                    if ($result->id_status == 3 or $result->id_status == 4) {
+                        echo "<td>".$this->tag->linkTo(["soporte/revisar/" . $result->id_reporte, "Revisar"])."</td>";
+                    }
+                    echo "</tr>";
+                }
+            }
+            else{
+                $this->flash->notice("No hay incidencias");
+            }
+        ?>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,103 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="page-header">
+    <h1>
+        Revisar reporte
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "soporte/comentarios",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="span4">
+    <div class='form-group' align="center">
+        <?php
+        if ($ruta && $archivo) {
+            echo "<img src='../../$ruta/$archivo'/><br><br>";
+            //echo $this->tag->linkTo(["soporte/descargar/", "Descargar"]);
+            echo "<label>El programador subio archivos</label>";
+            echo "<button type='button' id='descarga' class='btn-info'>Descargar Archivo</button><br>";
+            echo $this->tag->hiddenField(["value"=> $ruta, "id"=>"ubicacion"]);
+            echo $this->tag->hiddenField(["value"=> $archivoN, "id"=>"arch1"]);
+            echo $this->tag->hiddenField(["value"=> $archivoV, "id"=>"arch2"]);
+            //echo "<button type='button' id='download' class='btn-active'>Descargar Archivo</button><br>";
+            //echo "<a href='../../$ruta/$archivoV' download='$archivoV'>Descargar Archivo Nuevo</a>";
+        }
+        ?>
+    </div>
+</div>
+
+<div class="span2 offset1">
+    <div class="form-group">
+        <label>Prioridad</label>
+        <div>
+            <?php echo $this->tag->textField(["id_prioridad", "class" => "form-control", "id" => "fieldDescripcion", "readonly"=>"readonly"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Nombre</label>
+        <div>
+            <?php echo $this->tag->textField(["nombre", "class" => "form-control disable", "id" => "fieldNombre", "readonly"=>"readonly"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Descripcion</label>
+        <div>
+            <?php echo $this->tag->textField(["descripcion", "class" => "form-control", "id" => "fieldDescripcion", "readonly"=>"readonly"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Comentario</label>
+        <div>
+            <?php echo $this->tag->textArea(["comentario", "class" => "form-control", "id" => "fieldComentario"]) ?>
+        </div>
+    </div>
+
+    <?php echo $this->tag->hiddenField("id_reporte") ?>
+
+    <div class="form-group">
+        <div align="center">
+            <?php echo $this->tag->submitButton(["Agregar Comentario", "class" => "btn btn-success"]) ?>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "soporte/liberar",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="span2 offset2">
+    <div class="form-group">
+        <h4>Listo para liberar?</h4>
+        <div align="center">
+            <?php echo $this->tag->hiddenField("id_reporte") ?>
+            <?php echo $this->tag->submitButton(["Liberar", "class" => "btn btn-success"]) ?>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>

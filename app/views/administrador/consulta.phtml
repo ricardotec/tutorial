@@ -1,0 +1,42 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<?php use Phalcon\Tag; ?>
+
+<div class="page-header">
+    <h1>Usuarios</h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Login</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($page->items as $Usuario): ?>
+            <tr>
+            <?php if ($Usuario->getIdUsuario() > 0) {
+            ?>
+                <td><?php echo $Usuario->getLogin() ?></td>
+                <td><?php echo $Usuario->getNombre() ?> <?php echo $Usuario->getPaterno() ?> <?php echo $Usuario->getMaterno() ?></td>
+                <td><?php 
+                $rol = Rol::findFirstById_rol($Usuario->getIdRol()); 
+                echo $rol->rol ?></td>
+
+                <td><?php echo $this->tag->linkTo(["administrador/actualizar/" . $Usuario->getIdUsuario(), "Actualizar"]); ?></td>
+            </tr>
+            <?php }?>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

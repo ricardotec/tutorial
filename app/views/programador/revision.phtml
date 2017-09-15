@@ -1,0 +1,78 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="page-header">
+    <h1>
+        Subir archivos
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "programador/subir",
+            "enctype"=>"multipart/form-data",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="span4">
+    <div class='form-group'>
+        <?php
+        echo "<img src=../../$ruta/$archivo>";
+        ?>
+    </div>
+    <?php
+        echo "<div class='form-group'>
+                <h3>Comentarios</h3>
+                <div class='media'>";
+
+        if ($comentarios->count() > 0)
+        {
+            echo "<div class='media-body'>";
+            foreach($comentarios as $comen){
+                echo "
+                        <h4 class='media-heading'>".$comen->nombre." <small><i>".date("d M Y",strtotime($comen->fecha_comentario))."</i></small></h4>
+                    <p>".$comen->comentario."</p>
+                <br>";
+            }
+            echo "</div>";
+        }
+        else{
+            echo "<label>No hay comentarios</label>";
+        }
+        echo "</div>
+        </div>";
+    ?>
+</div>
+<div class="span3 offset3">
+
+    <?php echo $this->tag->hiddenField("id_reporte") ?>
+
+    <div class="form-group">
+        <label><b>Archivo de respaldo</b></label>
+        <div>
+            <input name="Servidor" type="file" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><b>Nuevo Archivo</b></label>
+        <div>
+            <input name="Nuevo" type="file" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div align="center">
+            <?php echo $this->tag->submitButton(["Subir", "class" => "btn btn-success"]) ?>
+        </div>
+    </div>
+</div>
+<?php echo $this->tag->endForm(); ?>

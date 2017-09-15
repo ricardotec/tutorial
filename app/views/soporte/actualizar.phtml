@@ -1,0 +1,80 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="page-header">
+    <h1>
+        Editar usuario
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "soporte/actualiza",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="span3 offset4">
+    <div class="form-group">
+        <label>Login</label>
+        <div>
+            <?php echo $this->tag->textField(["login", "size" => 30, "class" => "form-control", "id" => "fieldLogin"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Nombre</label>
+        <div>
+            <?php echo $this->tag->textField(["nombre", "size" => 30, "class" => "form-control", "id" => "fieldNombre"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Apellido Paterno</label>
+        <div>
+            <?php echo $this->tag->textField(["paterno", "size" => 30, "class" => "form-control", "id" => "fieldPaterno"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Apellido Materno</label>
+        <div>
+            <?php echo $this->tag->textField(["materno", "size" => 30, "class" => "form-control", "id" => "fieldMaterno"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Contraseña</label>
+        <div>
+            <?php echo $this->tag->passwordField(["pass", "type" => "number", "class" => "form-control", "id" => "fieldPass"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Rol</label>
+        <div align="center">
+            <?php 
+            $rol = Rol::find();
+            echo $this->tag->select(["id_rol",$rol,'using'=>['id_rol','rol'],"class" => "form-control"]) ?>
+        </div>
+    </div>
+
+
+    <?php echo $this->tag->hiddenField("id_usuario") ?>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <?php echo $this->tag->submitButton(["Actualizar", "class" => "btn btn-success"]) ?>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>

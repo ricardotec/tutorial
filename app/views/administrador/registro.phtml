@@ -1,0 +1,77 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="page-header">
+    <h1>
+        Registro de Usuario
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "administrador/create",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="span3 offset4">
+    <div class="form-group">
+        <label><b>Login</b></label>
+        <div>
+            <?php echo $this->tag->textField(["login", "size" => "2", "class" => "form-control", "id" => "fieldLogin"])?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Nombre</label>
+        <div>
+            <?php echo $this->tag->textField(["nombre", "size" => "2", "class" => "form-control", "id" => "fieldNombre"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Apellido Paterno</label>
+        <div>
+            <?php echo $this->tag->textField(["paterno", "size" => "10", "class" => "form-control", "id" => "fieldPaterno"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Apellido Materno</label>
+        <div>
+            <?php echo $this->tag->textField(["materno", "size" => "10", "class" => "form-control", "id" => "fieldMaterno"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Contraseña</label>
+        <div>
+            <?php echo $this->tag->passwordField(["pass", "type" => "password", "class" => "form-control", "id" => "fieldPass"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Rol</label>
+        <div align="center">
+            <?php 
+            $rol = Rol::find();
+            echo $this->tag->select(["id_rol",$rol,'using'=>['id_rol','rol'],"class" => "form-control"]) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <?php echo $this->tag->submitButton(["Registro", "class" => "btn btn-success"]) ?>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>
